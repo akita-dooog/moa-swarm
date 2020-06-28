@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: govern-server
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.56.201:8848
+  datasource:
+    url: jdbc:mysql://192.168.56.201:3306/moa?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    druid:
+      initial-size: 5
+      min-idle: 10
+      max-active: 20
+      stat-view-servlet:
+        login-username: druid
+        login-password: 123456

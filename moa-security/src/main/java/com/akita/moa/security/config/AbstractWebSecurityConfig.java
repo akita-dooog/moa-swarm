@@ -1,6 +1,9 @@
 package com.akita.moa.security.config;
 
 import cn.hutool.core.collection.CollUtil;
+import com.akita.moa.security.component.JwtAuthenticationTokenFilter;
+import com.akita.moa.security.component.RestAuthenticationEntryPoint;
+import com.akita.moa.security.component.RestfulAccessDeniedHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -9,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -62,17 +66,33 @@ public abstract class AbstractWebSecurityConfig extends WebSecurityConfigurerAda
     }
 
     // 白名单
-    protected abstract SecureWhitelistConfig secureWhitelistConfig();
+    @Bean
+    protected SecureWhitelistConfig secureWhitelistConfig() {
+        return new SecureWhitelistConfig();
+    }
 
     // 用来解决认证过的用户访问无权限资源时的异常
-    protected abstract AccessDeniedHandler accessDeniedHandler();
+    @Bean
+    protected AccessDeniedHandler accessDeniedHandler() {
+        return new RestfulAccessDeniedHandler();
+    }
 
     // 用来解决匿名用户访问无权限资源时的异常
-    protected abstract AuthenticationEntryPoint authenticationEntryPoint();
+    @Bean
+    protected AuthenticationEntryPoint authenticationEntryPoint() {
+        return new RestAuthenticationEntryPoint();
+    }
 
-    protected abstract OncePerRequestFilter oncePerRequestFilter();
+    @Bean
+    protected OncePerRequestFilter oncePerRequestFilter() {
+        return new JwtAuthenticationTokenFilter();
+    }
 
+    @Bean
     public abstract UserDetailsService userDetailsService();
 
-    protected abstract PasswordEncoder passwordEncoder();
+    @Bean
+    protected PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }

@@ -1,5 +1,6 @@
 package com.akita.moa.security.component;
 
+import com.akita.moa.security.config.JwtConfig;
 import com.akita.moa.security.util.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,22 +27,19 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    @Value("${jwt.tokenHeader:Authorization}")
-    private String tokenHeader;
-
-    @Value("${jwt.tokenHead:Bearer}")
-    private String tokenHead;
+    @Autowired
+    private JwtConfig jwtConfig;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String authHeader = request.getHeader(tokenHeader);
+        String authHeader = request.getHeader(jwtConfig.getTokenHeader());
 
-        if (!StringUtils.isEmpty(authHeader) && authHeader.startsWith(tokenHead)) {
-            String authToken = authHeader.substring(this.tokenHead.length());
+        if (!StringUtils.isEmpty(authHeader) && authHeader.startsWith(jwtConfig.getTokenHead())) {
+            String authToken = authHeader.substring(jwtConfig.getTokenHead().length());
             String username = jwtTokenUtil.getUserNameFromToken(authToken);
 
             log.info("checking username:{}", username);
-            if (!StringUtils.isEmpty(username) && SecurityContextHolder.getContext().getAuthentication() != null) {
+            if (!StringUtils.isEmpty(username) && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 if (jwtTokenUtil.validateToken(authToken, userDetails)) {
                     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

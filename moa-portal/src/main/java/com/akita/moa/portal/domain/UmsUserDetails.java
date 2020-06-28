@@ -27,7 +27,7 @@ public class UmsUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return umsUser.getAccount();
+        return umsUser.getUserName();
     }
 
     @Override

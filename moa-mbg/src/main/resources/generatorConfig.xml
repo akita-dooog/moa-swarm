@@ -30,6 +30,8 @@
             <property name="nullCatalogMeansCurrent" value="true" />
         </jdbcConnection>
 
+        <javaTypeResolver type="com.akita.moa.MyJavaTypeResolverImpl"/>
+
         <javaModelGenerator targetPackage="com.akita.moa.model" targetProject="moa-mbg/src/main/java"/>
 
         <sqlMapGenerator targetPackage="com.akita.moa.mapper" targetProject="moa-mbg/src/main/resources"/>

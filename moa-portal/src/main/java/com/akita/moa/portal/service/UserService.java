@@ -5,9 +5,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public interface UserService {
 
-    String login(String account, String password);
+    String login(String username, String password);
 
-    UmsUser getByAccount(String account);
+    UmsUser getByUsername(String username);
 
     /**
      * 获取用户信息

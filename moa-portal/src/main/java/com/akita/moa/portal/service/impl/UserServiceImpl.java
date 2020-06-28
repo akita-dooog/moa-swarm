@@ -28,10 +28,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     JwtTokenUtil tokenUtil;
 
-    public String login(String account, String password) {
-        UserDetails userDetails = loadUserByUsername(account);
+    public String login(String username, String password) {
+        UserDetails userDetails = loadUserByUsername(username);
 
-        if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+        if (!userDetails.getPassword().equals(password)) {
             throw new BadCredentialsException("密码错误");
         }
 
@@ -41,23 +41,23 @@ public class UserServiceImpl implements UserService {
         return tokenUtil.generateToken(userDetails);
     }
 
-    public UmsUser getByAccount(String account) {
+    public UmsUser getByUsername(String username) {
         UmsUserExample example = new UmsUserExample();
         UmsUserExample.Criteria criteria = example.createCriteria();
 
-        criteria.andAccountEqualTo(account);
+        criteria.andUserNameEqualTo(username);
 
         List<UmsUser> users = umsUserMapper.selectByExample(example);
         if (users.size() > 0) {
             return users.get(0);
         }
 
-        return new UmsUser();
+        return null;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        UmsUser user = getByAccount(username);
+        UmsUser user = getByUsername(username);
         if (null != user) return new UmsUserDetails(user);
         throw new UsernameNotFoundException("用户名或密码错误");
     }

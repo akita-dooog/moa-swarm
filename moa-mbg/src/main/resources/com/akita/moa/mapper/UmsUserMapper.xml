@@ -4,18 +4,18 @@
   <resultMap id="BaseResultMap" type="com.akita.moa.model.UmsUser">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="account" jdbcType="VARCHAR" property="account" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="display_name" jdbcType="VARCHAR" property="displayName" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="tel" jdbcType="VARCHAR" property="tel" />
     <result column="e_mail" jdbcType="VARCHAR" property="eMail" />
-    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="gender" jdbcType="BIT" property="gender" />
     <result column="avatar" jdbcType="VARCHAR" property="avatar" />
     <result column="signature" jdbcType="VARCHAR" property="signature" />
-    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="status" jdbcType="BIT" property="status" />
     <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
     <result column="creator" jdbcType="VARCHAR" property="creator" />
-    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="update_at" jdbcType="TIMESTAMP" property="updateAt" />
     <result column="updator" jdbcType="VARCHAR" property="updator" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -77,8 +77,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_name, account, password, phone, tel, e_mail, gender, avatar, signature, 
-    status, created_at, creator, updated_at, updator
+    id, user_name, password, display_name, phone, tel, e_mail, gender, avatar, signature, 
+    status, created_at, creator, update_at, updator
   </sql>
   <select id="selectByExample" parameterType="com.akita.moa.model.UmsUserExample" resultMap="BaseResultMap">
     select
@@ -114,16 +114,16 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into ums_user (user_name, account, password, 
+    insert into ums_user (user_name, password, display_name, 
       phone, tel, e_mail, 
       gender, avatar, signature, 
       status, created_at, creator, 
-      updated_at, updator)
-    values (#{userName,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      update_at, updator)
+    values (#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{displayName,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{eMail,jdbcType=VARCHAR}, 
-      #{gender,jdbcType=INTEGER}, #{avatar,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{createdAt,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, 
-      #{updatedAt,jdbcType=TIMESTAMP}, #{updator,jdbcType=VARCHAR})
+      #{gender,jdbcType=BIT}, #{avatar,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, 
+      #{status,jdbcType=BIT}, #{createdAt,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, 
+      #{updateAt,jdbcType=TIMESTAMP}, #{updator,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.akita.moa.model.UmsUser">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -134,11 +134,11 @@
       <if test="userName != null">
         user_name,
       </if>
-      <if test="account != null">
-        account,
-      </if>
       <if test="password != null">
         password,
+      </if>
+      <if test="displayName != null">
+        display_name,
       </if>
       <if test="phone != null">
         phone,
@@ -167,8 +167,8 @@
       <if test="creator != null">
         creator,
       </if>
-      <if test="updatedAt != null">
-        updated_at,
+      <if test="updateAt != null">
+        update_at,
       </if>
       <if test="updator != null">
         updator,
@@ -178,11 +178,11 @@
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="account != null">
-        #{account,jdbcType=VARCHAR},
-      </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="displayName != null">
+        #{displayName,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
         #{phone,jdbcType=VARCHAR},
@@ -194,7 +194,7 @@
         #{eMail,jdbcType=VARCHAR},
       </if>
       <if test="gender != null">
-        #{gender,jdbcType=INTEGER},
+        #{gender,jdbcType=BIT},
       </if>
       <if test="avatar != null">
         #{avatar,jdbcType=VARCHAR},
@@ -203,7 +203,7 @@
         #{signature,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
-        #{status,jdbcType=INTEGER},
+        #{status,jdbcType=BIT},
       </if>
       <if test="createdAt != null">
         #{createdAt,jdbcType=TIMESTAMP},
@@ -211,8 +211,8 @@
       <if test="creator != null">
         #{creator,jdbcType=VARCHAR},
       </if>
-      <if test="updatedAt != null">
-        #{updatedAt,jdbcType=TIMESTAMP},
+      <if test="updateAt != null">
+        #{updateAt,jdbcType=TIMESTAMP},
       </if>
       <if test="updator != null">
         #{updator,jdbcType=VARCHAR},
@@ -234,11 +234,11 @@
       <if test="record.userName != null">
         user_name = #{record.userName,jdbcType=VARCHAR},
       </if>
-      <if test="record.account != null">
-        account = #{record.account,jdbcType=VARCHAR},
-      </if>
       <if test="record.password != null">
         password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.displayName != null">
+        display_name = #{record.displayName,jdbcType=VARCHAR},
       </if>
       <if test="record.phone != null">
         phone = #{record.phone,jdbcType=VARCHAR},
@@ -250,7 +250,7 @@
         e_mail = #{record.eMail,jdbcType=VARCHAR},
       </if>
       <if test="record.gender != null">
-        gender = #{record.gender,jdbcType=INTEGER},
+        gender = #{record.gender,jdbcType=BIT},
       </if>
       <if test="record.avatar != null">
         avatar = #{record.avatar,jdbcType=VARCHAR},
@@ -259,7 +259,7 @@
         signature = #{record.signature,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null">
-        status = #{record.status,jdbcType=INTEGER},
+        status = #{record.status,jdbcType=BIT},
       </if>
       <if test="record.createdAt != null">
         created_at = #{record.createdAt,jdbcType=TIMESTAMP},
@@ -267,8 +267,8 @@
       <if test="record.creator != null">
         creator = #{record.creator,jdbcType=VARCHAR},
       </if>
-      <if test="record.updatedAt != null">
-        updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      <if test="record.updateAt != null">
+        update_at = #{record.updateAt,jdbcType=TIMESTAMP},
       </if>
       <if test="record.updator != null">
         updator = #{record.updator,jdbcType=VARCHAR},
@@ -282,18 +282,18 @@
     update ums_user
     set id = #{record.id,jdbcType=BIGINT},
       user_name = #{record.userName,jdbcType=VARCHAR},
-      account = #{record.account,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
+      display_name = #{record.displayName,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
       tel = #{record.tel,jdbcType=VARCHAR},
       e_mail = #{record.eMail,jdbcType=VARCHAR},
-      gender = #{record.gender,jdbcType=INTEGER},
+      gender = #{record.gender,jdbcType=BIT},
       avatar = #{record.avatar,jdbcType=VARCHAR},
       signature = #{record.signature,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=BIT},
       created_at = #{record.createdAt,jdbcType=TIMESTAMP},
       creator = #{record.creator,jdbcType=VARCHAR},
-      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      update_at = #{record.updateAt,jdbcType=TIMESTAMP},
       updator = #{record.updator,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -305,11 +305,11 @@
       <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="account != null">
-        account = #{account,jdbcType=VARCHAR},
-      </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="displayName != null">
+        display_name = #{displayName,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
         phone = #{phone,jdbcType=VARCHAR},
@@ -321,7 +321,7 @@
         e_mail = #{eMail,jdbcType=VARCHAR},
       </if>
       <if test="gender != null">
-        gender = #{gender,jdbcType=INTEGER},
+        gender = #{gender,jdbcType=BIT},
       </if>
       <if test="avatar != null">
         avatar = #{avatar,jdbcType=VARCHAR},
@@ -330,7 +330,7 @@
         signature = #{signature,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
+        status = #{status,jdbcType=BIT},
       </if>
       <if test="createdAt != null">
         created_at = #{createdAt,jdbcType=TIMESTAMP},
@@ -338,8 +338,8 @@
       <if test="creator != null">
         creator = #{creator,jdbcType=VARCHAR},
       </if>
-      <if test="updatedAt != null">
-        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      <if test="updateAt != null">
+        update_at = #{updateAt,jdbcType=TIMESTAMP},
       </if>
       <if test="updator != null">
         updator = #{updator,jdbcType=VARCHAR},
@@ -350,18 +350,18 @@
   <update id="updateByPrimaryKey" parameterType="com.akita.moa.model.UmsUser">
     update ums_user
     set user_name = #{userName,jdbcType=VARCHAR},
-      account = #{account,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
+      display_name = #{displayName,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       tel = #{tel,jdbcType=VARCHAR},
       e_mail = #{eMail,jdbcType=VARCHAR},
-      gender = #{gender,jdbcType=INTEGER},
+      gender = #{gender,jdbcType=BIT},
       avatar = #{avatar,jdbcType=VARCHAR},
       signature = #{signature,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
+      status = #{status,jdbcType=BIT},
       created_at = #{createdAt,jdbcType=TIMESTAMP},
       creator = #{creator,jdbcType=VARCHAR},
-      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      update_at = #{updateAt,jdbcType=TIMESTAMP},
       updator = #{updator,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>

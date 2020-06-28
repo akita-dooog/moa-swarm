@@ -3,7 +3,6 @@ package com.akita.moa.mapper;
 import com.akita.moa.model.UmsUser;
 import com.akita.moa.model.UmsUserExample;
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 
 public interface UmsUserMapper {

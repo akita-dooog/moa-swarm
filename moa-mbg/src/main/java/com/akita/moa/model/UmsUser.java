@@ -5,36 +5,37 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class UmsUser implements Serializable {
+    @ApiModelProperty(value = "主键")
     private Long id;
 
-    @ApiModelProperty(value = "用户名")
+    @ApiModelProperty(value = "登录账号")
     private String userName;
 
-    @ApiModelProperty(value = "用户账号")
-    private String account;
-
-    @ApiModelProperty(value = "用户密码")
+    @ApiModelProperty(value = "密码")
     private String password;
 
-    @ApiModelProperty(value = "手机号")
+    @ApiModelProperty(value = "用户显示名、昵称")
+    private String displayName;
+
+    @ApiModelProperty(value = "手机")
     private String phone;
 
-    @ApiModelProperty(value = "电话号")
+    @ApiModelProperty(value = "办公电话")
     private String tel;
 
     @ApiModelProperty(value = "电子邮箱")
     private String eMail;
 
-    @ApiModelProperty(value = "性别")
+    @ApiModelProperty(value = "性别 0-未知 1-男 2-女")
     private Integer gender;
 
     @ApiModelProperty(value = "头像链接")
     private String avatar;
 
-    @ApiModelProperty(value = "签名状态")
+    @ApiModelProperty(value = "状态签名")
     private String signature;
 
-    @ApiModelProperty(value = "禁用为0 可用为1")
+    @ApiModelProperty(value = "0- 禁用 1-启用")
     private Integer status;
 
     @ApiModelProperty(value = "创建时间")
@@ -44,7 +45,7 @@ public class UmsUser implements Serializable {
     private String creator;
 
     @ApiModelProperty(value = "更新时间")
-    private Date updatedAt;
+    private Date updateAt;
 
     @ApiModelProperty(value = "更新人")
     private String updator;
@@ -67,20 +68,20 @@ public class UmsUser implements Serializable {
         this.userName = userName;
     }
 
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     public String getPhone() {
@@ -155,12 +156,12 @@ public class UmsUser implements Serializable {
         this.creator = creator;
     }
 
-    public Date getUpdatedAt() {
-        return updatedAt;
+    public Date getUpdateAt() {
+        return updateAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setUpdateAt(Date updateAt) {
+        this.updateAt = updateAt;
     }
 
     public String getUpdator() {
@@ -179,8 +180,8 @@ public class UmsUser implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", userName=").append(userName);
-        sb.append(", account=").append(account);
         sb.append(", password=").append(password);
+        sb.append(", displayName=").append(displayName);
         sb.append(", phone=").append(phone);
         sb.append(", tel=").append(tel);
         sb.append(", eMail=").append(eMail);
@@ -190,7 +191,7 @@ public class UmsUser implements Serializable {
         sb.append(", status=").append(status);
         sb.append(", createdAt=").append(createdAt);
         sb.append(", creator=").append(creator);
-        sb.append(", updatedAt=").append(updatedAt);
+        sb.append(", updateAt=").append(updateAt);
         sb.append(", updator=").append(updator);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

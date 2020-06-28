@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.akita.moa.desk.dao.AppDao">
+    <resultMap id="BaseResultMap" type="com.akita.moa.model.UmsUserPwd">
+        <result column="app_name" jdbcType="VARCHAR" property="appName" />
+        <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+        <result column="badge" jdbcType="VARCHAR" property="badge" />
+        <result column="icon" jdbcType="VARCHAR" property="icon" />
+        <result column="uri" jdbcType="VARCHAR" property="uri" />
+        <result column="version" jdbcType="VARCHAR" property="version" />
+    </resultMap>
+
+    <select id="listByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+            a.app_name,
+            t.type_name,
+            a.badge,
+            a.icon,
+            ar.uri,
+            ar.version
+        FROM ums_user u, ums_role r, ums_user_role_relation ur, dms_role_app_relation ra, dms_app a, dms_app_resource ar, dms_app_type t
+        WHERE u.user_name = #{username,jdbcType=VARCHAR}
+        AND u.id = ur.user_id
+        AND ur.role_id = r.id
+        AND r.id = ra.role_id
+        AND ra.app_id = a.id
+        AND a.id = ar.app_id
+        AND a.type_id = t.id
+        ORDER BY version DESC
+        LIMIT 1
+    </select>
+
+</mapper>
