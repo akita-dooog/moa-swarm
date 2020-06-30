@@ -771,7 +771,7 @@
           "chnname": "banner信息表"
         },
         {
-          "title": "dms_app",
+          "title": "dms_app_resource",
           "fields": [
             {
               "name": "ID",
@@ -781,6 +781,33 @@
               "pk": true,
               "notNull": true,
               "autoIncrement": true
+            },
+            {
+              "name": "APP_ID",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "应用ID信息",
+              "notNull": true
+            },
+            {
+              "name": "URI",
+              "type": "ShortString",
+              "remark": "",
+              "chnname": "资源链接",
+              "notNull": true
+            },
+            {
+              "name": "DESCRIPTION",
+              "type": "ShortString",
+              "remark": "",
+              "chnname": "描述"
+            },
+            {
+              "name": "VERSION",
+              "type": "ShortString-16",
+              "remark": "",
+              "chnname": "版本",
+              "defaultValue": "1.0.0"
             },
             {
               "name": "IS_AVAILABLE",
@@ -872,10 +899,11 @@
               "fieldName": "uiHint",
               "relationNoShow": true
             }
-          ]
+          ],
+          "chnname": "应用资源表"
         },
         {
-          "title": "dms_app_info",
+          "title": "dms_app",
           "fields": [
             {
               "name": "ID",
@@ -890,13 +918,54 @@
               "name": "NAME",
               "type": "DefaultString",
               "remark": "",
-              "chnname": "应用名"
+              "chnname": "应用名",
+              "notNull": true
             },
             {
               "name": "ICON",
               "type": "ShortString",
               "remark": "",
-              "chnname": "图标链接"
+              "chnname": "图标链接",
+              "notNull": true
+            },
+            {
+              "name": "APP_CATEGORY_ID",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "app类型",
+              "notNull": true
+            },
+            {
+              "name": "DESCRIPTION",
+              "type": "ShortString",
+              "remark": "",
+              "chnname": "描述"
+            },
+            {
+              "name": "EXTRA",
+              "type": "ShortString-256",
+              "remark": "",
+              "chnname": "附加"
+            },
+            {
+              "name": "VERIFICATION",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "二次密码校验",
+              "defaultValue": "0"
+            },
+            {
+              "name": "COMPANY_ID",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "公司ID",
+              "notNull": true
+            },
+            {
+              "name": "ORDER",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "顺序"
             },
             {
               "name": "IS_AVAILABLE",
@@ -989,19 +1058,51 @@
               "relationNoShow": true
             }
           ],
-          "chnname": "应用信息"
+          "chnname": "应用表"
         },
         {
-          "title": "dms_app_type",
+          "title": "dms_app_category",
           "fields": [
             {
               "name": "ID",
-              "type": "NumberKey",
+              "type": "Integer",
               "remark": "主键",
               "chnname": "主键",
               "pk": true,
               "notNull": true,
               "autoIncrement": true
+            },
+            {
+              "name": "NAME",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "类型名",
+              "notNull": true
+            },
+            {
+              "name": "BADGE",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "徽章标志"
+            },
+            {
+              "name": "DESCRIPTION",
+              "type": "ShortString",
+              "remark": "",
+              "chnname": "描述"
+            },
+            {
+              "name": "COMPANY_ID",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "公司ID",
+              "notNull": true
+            },
+            {
+              "name": "ORDER",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "顺序"
             },
             {
               "name": "IS_AVAILABLE",
@@ -1046,7 +1147,55 @@
               "chnname": "更新时间",
               "notNull": true
             }
-          ]
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "应用类型表"
         },
         {
           "title": "dms_banner_set",
@@ -1283,6 +1432,177 @@
             }
           ],
           "chnname": "公司表"
+        },
+        {
+          "title": "gms_login_log",
+          "fields": [
+            {
+              "name": "ID",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "主键",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true
+            },
+            {
+              "name": "IS_AVAILABLE",
+              "type": "Integer",
+              "remark": "0-禁用，1-启用",
+              "chnname": "可用性",
+              "notNull": true,
+              "defaultValue": "1"
+            },
+            {
+              "name": "REVISION",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "乐观锁",
+              "notNull": false
+            },
+            {
+              "name": "CREATED_BY",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "创建人",
+              "notNull": true
+            },
+            {
+              "name": "CREATED_TIME",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "创建时间",
+              "notNull": true
+            },
+            {
+              "name": "UPDATED_BY",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "更新人",
+              "notNull": true
+            },
+            {
+              "name": "UPDATED_TIME",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "更新时间",
+              "notNull": true
+            }
+          ]
+        },
+        {
+          "title": "ims_message",
+          "fields": [
+            {
+              "name": "ID",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "主键",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true
+            },
+            {
+              "name": "IS_AVAILABLE",
+              "type": "Integer",
+              "remark": "0-禁用，1-启用",
+              "chnname": "可用性",
+              "notNull": true,
+              "defaultValue": "1"
+            },
+            {
+              "name": "REVISION",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "乐观锁",
+              "notNull": false
+            },
+            {
+              "name": "CREATED_BY",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "创建人",
+              "notNull": true
+            },
+            {
+              "name": "CREATED_TIME",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "创建时间",
+              "notNull": true
+            },
+            {
+              "name": "UPDATED_BY",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "更新人",
+              "notNull": true
+            },
+            {
+              "name": "UPDATED_TIME",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "更新时间",
+              "notNull": true
+            }
+          ]
+        },
+        {
+          "title": "ims_user_last_message",
+          "fields": [
+            {
+              "name": "ID",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "主键",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true
+            },
+            {
+              "name": "IS_AVAILABLE",
+              "type": "Integer",
+              "remark": "0-禁用，1-启用",
+              "chnname": "可用性",
+              "notNull": true,
+              "defaultValue": "1"
+            },
+            {
+              "name": "REVISION",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "乐观锁",
+              "notNull": false
+            },
+            {
+              "name": "CREATED_BY",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "创建人",
+              "notNull": true
+            },
+            {
+              "name": "CREATED_TIME",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "创建时间",
+              "notNull": true
+            },
+            {
+              "name": "UPDATED_BY",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "更新人",
+              "notNull": true
+            },
+            {
+              "name": "UPDATED_TIME",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "更新时间",
+              "notNull": true
+            }
+          ]
         }
       ],
       "graphCanvas": {
@@ -1734,6 +2054,27 @@
             "type": "VARCHAR(256)"
           }
         }
+      },
+      {
+        "name": "字串-16",
+        "code": "ShortString-16",
+        "apply": {
+          "JAVA": {
+            "type": "String"
+          },
+          "MYSQL": {
+            "type": "VARCHAR(16)"
+          },
+          "ORACLE": {
+            "type": "NVARCHAR2(16)"
+          },
+          "SQLServer": {
+            "type": "NVARCHAR(16)"
+          },
+          "PostgreSQL": {
+            "type": "VARCHAR(16)"
+          }
+        }
       }
     ],
     "database": [
@@ -1810,7 +2151,7 @@
       {
         "name": "ID",
         "type": "NumberKey",
-        "remark": "主键",
+        "remark": "",
         "chnname": "主键",
         "pk": true,
         "notNull": true,
@@ -1819,7 +2160,7 @@
       {
         "name": "IS_AVAILABLE",
         "type": "Integer",
-        "remark": "可用性",
+        "remark": "0-禁用，1-启用",
         "chnname": "可用性",
         "notNull": true,
         "defaultValue": "1"
@@ -1827,35 +2168,35 @@
       {
         "name": "REVISION",
         "type": "Integer",
-        "remark": "乐观锁",
+        "remark": "",
         "chnname": "乐观锁",
         "notNull": false
       },
       {
         "name": "CREATED_BY",
         "type": "NumberKey",
-        "remark": "创建人",
+        "remark": "",
         "chnname": "创建人",
         "notNull": true
       },
       {
         "name": "CREATED_TIME",
         "type": "DateTime",
-        "remark": "创建时间",
+        "remark": "",
         "chnname": "创建时间",
         "notNull": true
       },
       {
         "name": "UPDATED_BY",
         "type": "NumberKey",
-        "remark": "更新人",
+        "remark": "",
         "chnname": "更新人",
         "notNull": true
       },
       {
         "name": "UPDATED_TIME",
         "type": "DateTime",
-        "remark": "更新时间",
+        "remark": "",
         "chnname": "更新时间",
         "notNull": true
       }
