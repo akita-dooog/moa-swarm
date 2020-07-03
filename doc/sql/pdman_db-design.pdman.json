@@ -1446,49 +1446,97 @@
               "autoIncrement": true
             },
             {
+              "name": "USER_NAME",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "创建人",
+              "notNull": true,
+              "pk": false
+            },
+            {
+              "name": "IP",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "登录IP"
+            },
+            {
+              "name": "PLATFORM",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "登录平台",
+              "notNull": true
+            },
+            {
+              "name": "MAC",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "物理地址"
+            },
+            {
+              "name": "LOGIN_TIME",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "登录时间",
+              "notNull": true,
+              "pk": false
+            },
+            {
               "name": "IS_AVAILABLE",
               "type": "Integer",
               "remark": "0-禁用，1-启用",
               "chnname": "可用性",
               "notNull": true,
               "defaultValue": "1"
-            },
-            {
-              "name": "REVISION",
-              "type": "Integer",
-              "remark": "",
-              "chnname": "乐观锁",
-              "notNull": false
-            },
-            {
-              "name": "CREATED_BY",
-              "type": "NumberKey",
-              "remark": "",
-              "chnname": "创建人",
-              "notNull": true
-            },
-            {
-              "name": "CREATED_TIME",
-              "type": "DateTime",
-              "remark": "",
-              "chnname": "创建时间",
-              "notNull": true
-            },
-            {
-              "name": "UPDATED_BY",
-              "type": "NumberKey",
-              "remark": "",
-              "chnname": "更新人",
-              "notNull": true
-            },
-            {
-              "name": "UPDATED_TIME",
-              "type": "DateTime",
-              "remark": "",
-              "chnname": "更新时间",
-              "notNull": true
             }
-          ]
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "登录记录表"
         },
         {
           "title": "ims_message",
@@ -1503,6 +1551,66 @@
               "autoIncrement": true
             },
             {
+              "name": "FROM",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "发送人"
+            },
+            {
+              "name": "TO",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "接收人"
+            },
+            {
+              "name": "GROUP_ID",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "群组ID"
+            },
+            {
+              "name": "IS_GROUP",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "是否群组消息"
+            },
+            {
+              "name": "CONTENT",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "消息内容/文件名"
+            },
+            {
+              "name": "FILE_TYPE",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "文件类型"
+            },
+            {
+              "name": "URI",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "文件/视频/音频/图片链接"
+            },
+            {
+              "name": "THUMBNAIL",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "缩略图链接"
+            },
+            {
+              "name": "DURATION",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "视频/音频时长"
+            },
+            {
+              "name": "EXTRA",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "扩展"
+            },
+            {
               "name": "IS_AVAILABLE",
               "type": "Integer",
               "remark": "0-禁用，1-启用",
@@ -1545,7 +1653,55 @@
               "chnname": "更新时间",
               "notNull": true
             }
-          ]
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "消息表"
         },
         {
           "title": "ims_user_last_message",
@@ -1560,6 +1716,24 @@
               "autoIncrement": true
             },
             {
+              "name": "USERNAME",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "用户名"
+            },
+            {
+              "name": "PLATFORM",
+              "type": "ShortString-16",
+              "remark": "",
+              "chnname": "平台"
+            },
+            {
+              "name": "MESSAGE_ID_TIME",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "最后消息时间"
+            },
+            {
               "name": "IS_AVAILABLE",
               "type": "Integer",
               "remark": "0-禁用，1-启用",
@@ -1602,7 +1776,173 @@
               "chnname": "更新时间",
               "notNull": true
             }
-          ]
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "用户最后读取消息记录表"
+        },
+        {
+          "title": "ims_group",
+          "fields": [
+            {
+              "name": "ID",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "主键",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true
+            },
+            {
+              "name": "NAME",
+              "type": "ShortString-256",
+              "remark": "",
+              "chnname": "群组名",
+              "notNull": true
+            },
+            {
+              "name": "NOTICE",
+              "type": "ShortString-256",
+              "remark": "",
+              "chnname": "公告"
+            },
+            {
+              "name": "IS_AVAILABLE",
+              "type": "Integer",
+              "remark": "0-禁用，1-启用",
+              "chnname": "可用性",
+              "notNull": true,
+              "defaultValue": "1"
+            },
+            {
+              "name": "REVISION",
+              "type": "Integer",
+              "remark": "",
+              "chnname": "乐观锁",
+              "notNull": false
+            },
+            {
+              "name": "CREATED_BY",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "创建人",
+              "notNull": true
+            },
+            {
+              "name": "CREATED_TIME",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "创建时间",
+              "notNull": true
+            },
+            {
+              "name": "UPDATED_BY",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "更新人",
+              "notNull": true
+            },
+            {
+              "name": "UPDATED_TIME",
+              "type": "DateTime",
+              "remark": "",
+              "chnname": "更新时间",
+              "notNull": true
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "群组表"
         }
       ],
       "graphCanvas": {
