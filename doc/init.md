@@ -33,6 +33,10 @@ docker run -p 3306:3306 --name mysql -v /opt/docker_v/mysql/conf:/etc/mysql/conf
 ```shell script
 docker pull minio/minio
 docker run -p 9000:9000 --name minio -d -e "MINIO_ACCESS_KEY=minio" -e "MINIO_SECRET_KEY=12345678" minio/minio server /data
+# 启动客户端
+docker run -it --entrypoint=/bin/sh minio/mc
+
+mc config host add minio http://127.0.0.1:9000 minio 12345678 S3v4
 ```
 2. 登陆地址：http://localhost:9000。默认账号密码是minioadmin/minioadmin
 

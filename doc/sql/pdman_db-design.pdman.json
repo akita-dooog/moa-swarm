@@ -17,7 +17,7 @@
             },
             {
               "name": "password",
-              "type": "ShortString-256",
+              "type": "ShortString",
               "remark": "",
               "chnname": "密码",
               "notNull": true,
@@ -143,7 +143,8 @@
               "type": "NumberKey",
               "remark": "",
               "chnname": "公司ID",
-              "notNull": true
+              "notNull": true,
+              "relationNoShow": false
             },
             {
               "name": "DEPT_ID",
@@ -1446,10 +1447,10 @@
               "autoIncrement": true
             },
             {
-              "name": "USER_NAME",
+              "name": "USER_ID",
               "type": "NumberKey",
               "remark": "",
-              "chnname": "创建人",
+              "chnname": "用户ID",
               "notNull": true,
               "pk": false
             },
@@ -1468,9 +1469,15 @@
             },
             {
               "name": "MAC",
-              "type": "DefaultString",
+              "type": "LongKey",
               "remark": "",
               "chnname": "物理地址"
+            },
+            {
+              "name": "IMEI",
+              "type": "LongKey",
+              "remark": "",
+              "chnname": "手机识别号"
             },
             {
               "name": "LOGIN_TIME",
@@ -1576,43 +1583,43 @@
             },
             {
               "name": "CONTENT",
-              "type": "DefaultString",
+              "type": "LongText",
               "remark": "",
               "chnname": "消息内容/文件名"
             },
             {
               "name": "TYPE",
-              "type": "DefaultString",
+              "type": "Integer",
               "remark": "",
               "chnname": "消息类型"
             },
             {
               "name": "FILE_TYPE",
-              "type": "DefaultString",
+              "type": "ShortString-16",
               "remark": "",
               "chnname": "文件类型"
             },
             {
               "name": "URI",
-              "type": "DefaultString",
+              "type": "ShortString",
               "remark": "",
               "chnname": "文件/视频/音频/图片链接"
             },
             {
               "name": "THUMBNAIL",
-              "type": "DefaultString",
+              "type": "ShortString",
               "remark": "",
               "chnname": "缩略图链接"
             },
             {
               "name": "DURATION",
-              "type": "DefaultString",
+              "type": "Integer",
               "remark": "",
               "chnname": "视频/音频时长"
             },
             {
               "name": "EXTRA",
-              "type": "DefaultString",
+              "type": "ShortString",
               "remark": "",
               "chnname": "扩展"
             },
@@ -1734,10 +1741,10 @@
               "chnname": "平台"
             },
             {
-              "name": "MESSAGE_ID_TIME",
+              "name": "LAST_READ_TIME",
               "type": "DateTime",
               "remark": "",
-              "chnname": "最后消息时间"
+              "chnname": "最后阅读消息时间"
             },
             {
               "name": "IS_AVAILABLE",
@@ -1858,6 +1865,12 @@
               "chnname": "公告"
             },
             {
+              "name": "OWNER",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "群主"
+            },
+            {
               "name": "IS_AVAILABLE",
               "type": "Integer",
               "remark": "0-禁用，1-启用",
@@ -1961,6 +1974,38 @@
               "pk": true,
               "notNull": true,
               "autoIncrement": true
+            },
+            {
+              "name": "DISPLAY_NAME",
+              "type": "LongKey",
+              "remark": "",
+              "chnname": "描述名",
+              "notNull": true
+            },
+            {
+              "name": "AVATAR",
+              "type": "ShortString",
+              "remark": "",
+              "chnname": "头像"
+            },
+            {
+              "name": "BG_URI",
+              "type": "ShortString",
+              "remark": "",
+              "chnname": "背景图"
+            },
+            {
+              "name": "INTRO",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "简介"
+            },
+            {
+              "name": "COMPANY_ID",
+              "type": "BigInt",
+              "remark": "",
+              "chnname": "公司ID",
+              "notNull": true
             },
             {
               "name": "IS_AVAILABLE",
@@ -2081,7 +2126,7 @@
             },
             {
               "name": "CONTENT",
-              "type": "MiddleString",
+              "type": "LongText",
               "remark": "",
               "chnname": "内容"
             },
@@ -2092,6 +2137,12 @@
               "chnname": "可用性",
               "notNull": true,
               "defaultValue": "1"
+            },
+            {
+              "name": "ACCOUNT_ID",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "公众号ID"
             },
             {
               "name": "REVISION",
@@ -2179,111 +2230,6 @@
           "chnname": "公众号文章表"
         },
         {
-          "title": "oms_official_essay_set",
-          "fields": [
-            {
-              "name": "ID",
-              "type": "NumberKey",
-              "remark": "",
-              "chnname": "主键",
-              "pk": true,
-              "notNull": true,
-              "autoIncrement": true
-            },
-            {
-              "name": "IS_AVAILABLE",
-              "type": "Integer",
-              "remark": "0-禁用，1-启用",
-              "chnname": "可用性",
-              "notNull": true,
-              "defaultValue": "1"
-            },
-            {
-              "name": "REVISION",
-              "type": "Integer",
-              "remark": "",
-              "chnname": "乐观锁",
-              "notNull": false
-            },
-            {
-              "name": "CREATED_BY",
-              "type": "NumberKey",
-              "remark": "",
-              "chnname": "创建人",
-              "notNull": true
-            },
-            {
-              "name": "CREATED_TIME",
-              "type": "DateTime",
-              "remark": "",
-              "chnname": "创建时间",
-              "notNull": true
-            },
-            {
-              "name": "UPDATED_BY",
-              "type": "NumberKey",
-              "remark": "",
-              "chnname": "更新人",
-              "notNull": true
-            },
-            {
-              "name": "UPDATED_TIME",
-              "type": "DateTime",
-              "remark": "",
-              "chnname": "更新时间",
-              "notNull": true
-            }
-          ],
-          "indexs": [],
-          "headers": [
-            {
-              "fieldName": "chnname",
-              "relationNoShow": false
-            },
-            {
-              "fieldName": "name",
-              "relationNoShow": false
-            },
-            {
-              "fieldName": "type",
-              "relationNoShow": false
-            },
-            {
-              "fieldName": "dataType",
-              "relationNoShow": true
-            },
-            {
-              "fieldName": "remark",
-              "relationNoShow": true
-            },
-            {
-              "fieldName": "pk",
-              "relationNoShow": false
-            },
-            {
-              "fieldName": "notNull",
-              "relationNoShow": true
-            },
-            {
-              "fieldName": "autoIncrement",
-              "relationNoShow": true
-            },
-            {
-              "fieldName": "defaultValue",
-              "relationNoShow": true
-            },
-            {
-              "fieldName": "relationNoShow",
-              "relationNoShow": true
-            },
-            {
-              "fieldName": "uiHint",
-              "relationNoShow": true
-            }
-          ],
-          "chnname": "公众号文章组表"
-        },
-        {
           "title": "pms_client_version",
           "fields": [
             {
@@ -2294,6 +2240,39 @@
               "pk": true,
               "notNull": true,
               "autoIncrement": true
+            },
+            {
+              "name": "CLIENT_ID",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "客户端ID",
+              "notNull": true
+            },
+            {
+              "name": "VERSION",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "版本号",
+              "notNull": true
+            },
+            {
+              "name": "UPDATE_LOG",
+              "type": "LongKey",
+              "remark": "",
+              "chnname": "更新日志",
+              "notNull": true
+            },
+            {
+              "name": "SHOW_URI",
+              "type": "ShortString",
+              "remark": "",
+              "chnname": "详细演示地址"
+            },
+            {
+              "name": "DOWNLOAD_URI",
+              "type": "ShortString",
+              "remark": "",
+              "chnname": "下载地址"
             },
             {
               "name": "IS_AVAILABLE",
@@ -2401,6 +2380,34 @@
               "autoIncrement": true
             },
             {
+              "name": "NAME",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "客户端名",
+              "notNull": true
+            },
+            {
+              "name": "PLATFORM",
+              "type": "DefaultString",
+              "remark": "PC/ANDROID/IOS",
+              "chnname": "平台类型",
+              "notNull": true,
+              "defaultValue": ""
+            },
+            {
+              "name": "DOWNLOAD_URI",
+              "type": "ShortString",
+              "remark": "",
+              "chnname": "默认下载地址"
+            },
+            {
+              "name": "COMPANY_ID",
+              "type": "BigInt",
+              "remark": "",
+              "chnname": "公司ID",
+              "notNull": true
+            },
+            {
               "name": "IS_AVAILABLE",
               "type": "Integer",
               "remark": "0-禁用，1-启用",
@@ -2492,6 +2499,663 @@
             }
           ],
           "chnname": "主页客户端信息表"
+        },
+        {
+          "title": "oms_official_essay_set",
+          "fields": [
+            {
+              "name": "ID",
+              "type": "NumberKey",
+              "remark": "主键",
+              "chnname": "主键",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true
+            },
+            {
+              "name": "NAME",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "组名",
+              "notNull": true
+            },
+            {
+              "name": "DESCRIPTION",
+              "type": "ShortString",
+              "remark": "",
+              "chnname": "描述"
+            },
+            {
+              "name": "COMPANY_ID",
+              "type": "DefaultString",
+              "remark": "",
+              "chnname": "公司ID",
+              "notNull": true
+            },
+            {
+              "name": "IS_AVAILABLE",
+              "type": "Integer",
+              "remark": "可用性",
+              "chnname": "可用性",
+              "notNull": true,
+              "defaultValue": "1"
+            },
+            {
+              "name": "REVISION",
+              "type": "Integer",
+              "remark": "乐观锁",
+              "chnname": "乐观锁",
+              "notNull": false
+            },
+            {
+              "name": "CREATED_BY",
+              "type": "NumberKey",
+              "remark": "创建人",
+              "chnname": "创建人",
+              "notNull": true
+            },
+            {
+              "name": "CREATED_TIME",
+              "type": "DateTime",
+              "remark": "创建时间",
+              "chnname": "创建时间",
+              "notNull": true
+            },
+            {
+              "name": "UPDATED_BY",
+              "type": "NumberKey",
+              "remark": "更新人",
+              "chnname": "更新人",
+              "notNull": true
+            },
+            {
+              "name": "UPDATED_TIME",
+              "type": "DateTime",
+              "remark": "更新时间",
+              "chnname": "更新时间",
+              "notNull": true
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "公众号文章组表"
+        },
+        {
+          "title": "gms_user_role_relation",
+          "fields": [
+            {
+              "name": "ID",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "主键",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true
+            },
+            {
+              "name": "USER_ID",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "用户ID",
+              "notNull": true
+            },
+            {
+              "name": "ROLE_ID",
+              "type": "BigInt",
+              "remark": "",
+              "chnname": "角色ID",
+              "notNull": true
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "用户角色表"
+        },
+        {
+          "title": "dms_role_banner_set_relation",
+          "fields": [
+            {
+              "name": "ID",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "主键",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true
+            },
+            {
+              "name": "ROLE_ID",
+              "type": "BigInt",
+              "remark": "",
+              "chnname": "角色ID",
+              "notNull": true
+            },
+            {
+              "name": "BANNER_SET_ID",
+              "type": "BigInt",
+              "remark": "",
+              "chnname": "banner组ID",
+              "notNull": true
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "角色banner关系表"
+        },
+        {
+          "title": "dms_role_weapp_relation",
+          "fields": [
+            {
+              "name": "ID",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "主键",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true
+            },
+            {
+              "name": "ROLE_ID",
+              "type": "BigInt",
+              "remark": "",
+              "chnname": "角色ID",
+              "notNull": true
+            },
+            {
+              "name": "APP_ID",
+              "type": "BigInt",
+              "remark": "",
+              "chnname": "应用ID",
+              "notNull": true
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "角色h5app关系表"
+        },
+        {
+          "title": "ims_group_user_relation",
+          "fields": [
+            {
+              "name": "ID",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "主键",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true
+            },
+            {
+              "name": "GROUP_ID",
+              "type": "BigInt",
+              "remark": "",
+              "chnname": "群组ID",
+              "notNull": true
+            },
+            {
+              "name": "USER_ID",
+              "type": "BigInt",
+              "remark": "",
+              "chnname": "用户ID",
+              "notNull": true
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "群组用户关系表"
+        },
+        {
+          "title": "oms_user_offiacct_relation",
+          "fields": [
+            {
+              "name": "ID",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "主键",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true
+            },
+            {
+              "name": "USER_ID",
+              "type": "BigInt",
+              "remark": "",
+              "chnname": "用户ID",
+              "notNull": true
+            },
+            {
+              "name": "OFFIACCT_ID",
+              "type": "BigInt",
+              "remark": "",
+              "chnname": "公众号ID",
+              "notNull": true
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "应用公众号关系表"
+        },
+        {
+          "title": "oms_essay_set_relation",
+          "fields": [
+            {
+              "name": "ID",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "主键",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true
+            },
+            {
+              "name": "SET_ID",
+              "type": "BigInt",
+              "remark": "",
+              "chnname": "组ID",
+              "notNull": true
+            },
+            {
+              "name": "ESSAY_ID",
+              "type": "BigInt",
+              "remark": "",
+              "chnname": "文章ID",
+              "notNull": true
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "文章组关系表"
+        },
+        {
+          "title": "dms_banner_set_relation",
+          "fields": [
+            {
+              "name": "ID",
+              "type": "NumberKey",
+              "remark": "",
+              "chnname": "主键",
+              "pk": true,
+              "notNull": true,
+              "autoIncrement": true
+            },
+            {
+              "name": "SET_ID",
+              "type": "BigInt",
+              "remark": "",
+              "chnname": "组ID",
+              "notNull": true
+            },
+            {
+              "name": "BANNER_ID",
+              "type": "BigInt",
+              "remark": "",
+              "chnname": "bannerID",
+              "notNull": true
+            }
+          ],
+          "indexs": [],
+          "headers": [
+            {
+              "fieldName": "chnname",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "name",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "type",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "dataType",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "remark",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "pk",
+              "relationNoShow": false
+            },
+            {
+              "fieldName": "notNull",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "autoIncrement",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "defaultValue",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "relationNoShow",
+              "relationNoShow": true
+            },
+            {
+              "fieldName": "uiHint",
+              "relationNoShow": true
+            }
+          ],
+          "chnname": "banner组关系表"
         }
       ],
       "graphCanvas": {
