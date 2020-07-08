@@ -1,26 +1,35 @@
 package com.akita.moa.govern.domain;
 
+import com.akita.moa.govern.util.AuthorityUtil;
 import com.akita.moa.model.GmsUser;
 import com.akita.moa.model.GmsUserAccount;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 public class GmsUserDetails implements UserDetails {
     private final GmsUserAccount account;
     private final GmsUser user;
+    private List<UserAuthority> authorities;
 
     public GmsUserDetails(GmsUserAccount account, GmsUser user) {
         this.account = account;
         this.user = user;
+
+        // 初始化一个公司ID权限，查询该公司的部门和用户
+        authorities = AuthorityUtil.initAuth(user);
+    }
+
+    public GmsUserDetails(GmsUserAccount account, GmsUser user, List<UserAuthority> authorities) {
+        this.account = account;
+        this.user = user;
+        this.authorities = authorities;
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("companyId:" + user.getCompanyId()));
+    public Collection<UserAuthority> getAuthorities() {
+        return authorities;
     }
 
     @Override

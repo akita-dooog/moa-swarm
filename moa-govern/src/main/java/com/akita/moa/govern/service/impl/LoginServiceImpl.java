@@ -52,23 +52,36 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return new GmsUserDetails(getAccount(username), getUser(username));
+    }
+
+    private GmsUser getUser(String username) {
+        GmsUserExample example = new GmsUserExample();
+        GmsUserExample.Criteria criteria = example.createCriteria();
+
+        criteria.andUsernameEqualTo(username);
+
+        List<GmsUser> users = userMapper.selectByExample(example);
+
+        if (CollUtil.isEmpty(users)) {
+            throw new UsernameNotFoundException("查找不到该用户");
+        }
+
+        return users.get(0);
+    }
+
+    private GmsUserAccount getAccount(String username) {
         GmsUserAccountExample example = new GmsUserAccountExample();
         GmsUserAccountExample.Criteria criteria = example.createCriteria();
 
         criteria.andUsernameEqualTo(username);
+
         List<GmsUserAccount> accounts = userAccountMapper.selectByExample(example);
 
-        GmsUserExample userExample = new GmsUserExample();
-        GmsUserExample.Criteria userCriteria = userExample.createCriteria();
-
-        userCriteria.andUsernameEqualTo(username);
-
-        List<GmsUser> users = userMapper.selectByExample(userExample);
-
-        if (CollUtil.isEmpty(users) && CollUtil.isEmpty(accounts)) {
+        if (CollUtil.isEmpty(accounts)) {
             throw new UsernameNotFoundException("查找不到该用户");
         }
 
-        return new GmsUserDetails(accounts.get(0), users.get(0));
+        return accounts.get(0);
     }
 }

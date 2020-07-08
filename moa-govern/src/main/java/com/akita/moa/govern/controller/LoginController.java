@@ -7,12 +7,13 @@ import com.akita.moa.govern.service.LoginService;
 import com.akita.moa.security.config.JwtConfig;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api("登录控制")
+@Api(value = "登录控制器", tags = {"登录控制器"})
 @RestController
 public class LoginController {
     @Autowired
@@ -23,7 +24,7 @@ public class LoginController {
 
     @ApiOperation(value = "登录接口", notes = "前端登录校验，返回token")
     @PostMapping("/login")
-    public CommonResult login(@RequestBody LoginReq loginReq) {
+    public CommonResult login(@ApiParam("登录请求体") @RequestBody LoginReq loginReq) {
         String token = loginService.login(loginReq);
 
         if (token == null) return CommonResult.validateFailed("用户名或密码错误");

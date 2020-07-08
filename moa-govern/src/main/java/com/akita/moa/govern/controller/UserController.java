@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api("组织架构-用户管理")
+@Api(value = "用户管理控制器", tags = {"用户管理控制器"})
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -20,7 +20,7 @@ public class UserController {
 
     @ApiOperation(value = "根据用户权限拉取所有用户信息")
     @GetMapping("/all")
-    public CommonResult listUser(@ApiParam("增量时间参数") @RequestParam(required = false) String datetime) {
+    public CommonResult listUser(@ApiParam(value = "增量时间参数", example = "2020-07-07 22:42:00") @RequestParam(required = false) String datetime) {
         return CommonResult.success(userService.incList(datetime));
     }
 }
