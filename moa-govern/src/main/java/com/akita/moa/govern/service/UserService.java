@@ -1,16 +1,9 @@
 package com.akita.moa.govern.service;
 
-import com.akita.moa.govern.dto.LoginReq;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import com.akita.moa.model.GmsUser;
 
-public interface UserService extends UserDetailsService {
+import java.util.List;
 
-    /**
-     * 登录接口
-     * @param req
-     * @return
-     */
-    String login(LoginReq req);
-
-    String logout();
+public interface UserService {
+    List<GmsUser> incList(String datetime);
 }

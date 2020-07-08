@@ -27,18 +27,24 @@ docker run -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql
 docker run -p 3306:3306 --name mysql -v /opt/docker_v/mysql/conf:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=123456 -d mysql
 ```
 
+### 问题
+1. 连接Docker启动的mysql出现：2059 - Authentication plugin 'caching_sha2_password' cannot be loaded: dlopen(../Frameworks/caching_sha2_password.so, 2): image not found
+> 
+```shell script
+docker exec -it mysql /bin/bash
+mysql -uroot -p123456
+mysql> ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '123456';
+```
+
 ## 3.MinIO
 > 对象存储
 1. docker搭建环境
 ```shell script
 docker pull minio/minio
 docker run -p 9000:9000 --name minio -d -e "MINIO_ACCESS_KEY=minio" -e "MINIO_SECRET_KEY=12345678" minio/minio server /data
-# 启动客户端
-docker run -it --entrypoint=/bin/sh minio/mc
-
-mc config host add minio http://127.0.0.1:9000 minio 12345678 S3v4
 ```
 2. 登陆地址：http://localhost:9000。默认账号密码是minioadmin/minioadmin
+3. mac: http://docker.for.mac.localhost:9000
 
 ## 4. Redis
 1. docker搭建环境

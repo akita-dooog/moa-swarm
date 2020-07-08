@@ -29,4 +29,4 @@ secure:
 
 spring:
   profiles:
-    active: uat
+    active: dev

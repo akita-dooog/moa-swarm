@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.akita.moa.mapper.ImsMessageMapper">
+  <resultMap id="BaseResultMap" type="com.akita.moa.model.ImsMessage">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="SENDER" jdbcType="VARCHAR" property="sender" />
+    <result column="RECEIVER" jdbcType="VARCHAR" property="receiver" />
+    <result column="GROUP_ID" jdbcType="VARCHAR" property="groupId" />
+    <result column="IS_GROUP" jdbcType="INTEGER" property="isGroup" />
+    <result column="TYPE" jdbcType="INTEGER" property="type" />
+    <result column="FILE_TYPE" jdbcType="VARCHAR" property="fileType" />
+    <result column="URI" jdbcType="VARCHAR" property="uri" />
+    <result column="THUMBNAIL" jdbcType="VARCHAR" property="thumbnail" />
+    <result column="DURATION" jdbcType="INTEGER" property="duration" />
+    <result column="EXTRA" jdbcType="VARCHAR" property="extra" />
+    <result column="IS_AVAILABLE" jdbcType="INTEGER" property="isAvailable" />
+    <result column="REVISION" jdbcType="INTEGER" property="revision" />
+    <result column="CREATED_BY" jdbcType="VARCHAR" property="createdBy" />
+    <result column="CREATED_TIME" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="UPDATED_BY" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="UPDATED_TIME" jdbcType="TIMESTAMP" property="updatedTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.akita.moa.model.ImsMessage">
+    <result column="CONTENT" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, SENDER, RECEIVER, GROUP_ID, IS_GROUP, TYPE, FILE_TYPE, URI, THUMBNAIL, DURATION, 
+    EXTRA, IS_AVAILABLE, REVISION, CREATED_BY, CREATED_TIME, UPDATED_BY, UPDATED_TIME
+  </sql>
+  <sql id="Blob_Column_List">
+    CONTENT
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.akita.moa.model.ImsMessageExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ims_message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.akita.moa.model.ImsMessageExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ims_message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ims_message
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ims_message
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.akita.moa.model.ImsMessageExample">
+    delete from ims_message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.akita.moa.model.ImsMessage">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ims_message (SENDER, RECEIVER, GROUP_ID, 
+      IS_GROUP, TYPE, FILE_TYPE, 
+      URI, THUMBNAIL, DURATION, 
+      EXTRA, IS_AVAILABLE, REVISION, 
+      CREATED_BY, CREATED_TIME, UPDATED_BY, 
+      UPDATED_TIME, CONTENT)
+    values (#{sender,jdbcType=VARCHAR}, #{receiver,jdbcType=VARCHAR}, #{groupId,jdbcType=VARCHAR}, 
+      #{isGroup,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{fileType,jdbcType=VARCHAR}, 
+      #{uri,jdbcType=VARCHAR}, #{thumbnail,jdbcType=VARCHAR}, #{duration,jdbcType=INTEGER}, 
+      #{extra,jdbcType=VARCHAR}, #{isAvailable,jdbcType=INTEGER}, #{revision,jdbcType=INTEGER}, 
+      #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, 
+      #{updatedTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.akita.moa.model.ImsMessage">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ims_message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sender != null">
+        SENDER,
+      </if>
+      <if test="receiver != null">
+        RECEIVER,
+      </if>
+      <if test="groupId != null">
+        GROUP_ID,
+      </if>
+      <if test="isGroup != null">
+        IS_GROUP,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="fileType != null">
+        FILE_TYPE,
+      </if>
+      <if test="uri != null">
+        URI,
+      </if>
+      <if test="thumbnail != null">
+        THUMBNAIL,
+      </if>
+      <if test="duration != null">
+        DURATION,
+      </if>
+      <if test="extra != null">
+        EXTRA,
+      </if>
+      <if test="isAvailable != null">
+        IS_AVAILABLE,
+      </if>
+      <if test="revision != null">
+        REVISION,
+      </if>
+      <if test="createdBy != null">
+        CREATED_BY,
+      </if>
+      <if test="createdTime != null">
+        CREATED_TIME,
+      </if>
+      <if test="updatedBy != null">
+        UPDATED_BY,
+      </if>
+      <if test="updatedTime != null">
+        UPDATED_TIME,
+      </if>
+      <if test="content != null">
+        CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sender != null">
+        #{sender,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver != null">
+        #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="isGroup != null">
+        #{isGroup,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="fileType != null">
+        #{fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="uri != null">
+        #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbnail != null">
+        #{thumbnail,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null">
+        #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="extra != null">
+        #{extra,jdbcType=VARCHAR},
+      </if>
+      <if test="isAvailable != null">
+        #{isAvailable,jdbcType=INTEGER},
+      </if>
+      <if test="revision != null">
+        #{revision,jdbcType=INTEGER},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.akita.moa.model.ImsMessageExample" resultType="java.lang.Long">
+    select count(*) from ims_message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ims_message
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.sender != null">
+        SENDER = #{record.sender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiver != null">
+        RECEIVER = #{record.receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupId != null">
+        GROUP_ID = #{record.groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isGroup != null">
+        IS_GROUP = #{record.isGroup,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null">
+        TYPE = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.fileType != null">
+        FILE_TYPE = #{record.fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uri != null">
+        URI = #{record.uri,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thumbnail != null">
+        THUMBNAIL = #{record.thumbnail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.duration != null">
+        DURATION = #{record.duration,jdbcType=INTEGER},
+      </if>
+      <if test="record.extra != null">
+        EXTRA = #{record.extra,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isAvailable != null">
+        IS_AVAILABLE = #{record.isAvailable,jdbcType=INTEGER},
+      </if>
+      <if test="record.revision != null">
+        REVISION = #{record.revision,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdBy != null">
+        CREATED_BY = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null">
+        CREATED_TIME = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null">
+        UPDATED_BY = #{record.updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedTime != null">
+        UPDATED_TIME = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.content != null">
+        CONTENT = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update ims_message
+    set ID = #{record.id,jdbcType=BIGINT},
+      SENDER = #{record.sender,jdbcType=VARCHAR},
+      RECEIVER = #{record.receiver,jdbcType=VARCHAR},
+      GROUP_ID = #{record.groupId,jdbcType=VARCHAR},
+      IS_GROUP = #{record.isGroup,jdbcType=INTEGER},
+      TYPE = #{record.type,jdbcType=INTEGER},
+      FILE_TYPE = #{record.fileType,jdbcType=VARCHAR},
+      URI = #{record.uri,jdbcType=VARCHAR},
+      THUMBNAIL = #{record.thumbnail,jdbcType=VARCHAR},
+      DURATION = #{record.duration,jdbcType=INTEGER},
+      EXTRA = #{record.extra,jdbcType=VARCHAR},
+      IS_AVAILABLE = #{record.isAvailable,jdbcType=INTEGER},
+      REVISION = #{record.revision,jdbcType=INTEGER},
+      CREATED_BY = #{record.createdBy,jdbcType=VARCHAR},
+      CREATED_TIME = #{record.createdTime,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{record.updatedBy,jdbcType=VARCHAR},
+      UPDATED_TIME = #{record.updatedTime,jdbcType=TIMESTAMP},
+      CONTENT = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ims_message
+    set ID = #{record.id,jdbcType=BIGINT},
+      SENDER = #{record.sender,jdbcType=VARCHAR},
+      RECEIVER = #{record.receiver,jdbcType=VARCHAR},
+      GROUP_ID = #{record.groupId,jdbcType=VARCHAR},
+      IS_GROUP = #{record.isGroup,jdbcType=INTEGER},
+      TYPE = #{record.type,jdbcType=INTEGER},
+      FILE_TYPE = #{record.fileType,jdbcType=VARCHAR},
+      URI = #{record.uri,jdbcType=VARCHAR},
+      THUMBNAIL = #{record.thumbnail,jdbcType=VARCHAR},
+      DURATION = #{record.duration,jdbcType=INTEGER},
+      EXTRA = #{record.extra,jdbcType=VARCHAR},
+      IS_AVAILABLE = #{record.isAvailable,jdbcType=INTEGER},
+      REVISION = #{record.revision,jdbcType=INTEGER},
+      CREATED_BY = #{record.createdBy,jdbcType=VARCHAR},
+      CREATED_TIME = #{record.createdTime,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{record.updatedBy,jdbcType=VARCHAR},
+      UPDATED_TIME = #{record.updatedTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.akita.moa.model.ImsMessage">
+    update ims_message
+    <set>
+      <if test="sender != null">
+        SENDER = #{sender,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver != null">
+        RECEIVER = #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null">
+        GROUP_ID = #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="isGroup != null">
+        IS_GROUP = #{isGroup,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="fileType != null">
+        FILE_TYPE = #{fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="uri != null">
+        URI = #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbnail != null">
+        THUMBNAIL = #{thumbnail,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null">
+        DURATION = #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="extra != null">
+        EXTRA = #{extra,jdbcType=VARCHAR},
+      </if>
+      <if test="isAvailable != null">
+        IS_AVAILABLE = #{isAvailable,jdbcType=INTEGER},
+      </if>
+      <if test="revision != null">
+        REVISION = #{revision,jdbcType=INTEGER},
+      </if>
+      <if test="createdBy != null">
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        CREATED_TIME = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        UPDATED_TIME = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        CONTENT = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.akita.moa.model.ImsMessage">
+    update ims_message
+    set SENDER = #{sender,jdbcType=VARCHAR},
+      RECEIVER = #{receiver,jdbcType=VARCHAR},
+      GROUP_ID = #{groupId,jdbcType=VARCHAR},
+      IS_GROUP = #{isGroup,jdbcType=INTEGER},
+      TYPE = #{type,jdbcType=INTEGER},
+      FILE_TYPE = #{fileType,jdbcType=VARCHAR},
+      URI = #{uri,jdbcType=VARCHAR},
+      THUMBNAIL = #{thumbnail,jdbcType=VARCHAR},
+      DURATION = #{duration,jdbcType=INTEGER},
+      EXTRA = #{extra,jdbcType=VARCHAR},
+      IS_AVAILABLE = #{isAvailable,jdbcType=INTEGER},
+      REVISION = #{revision,jdbcType=INTEGER},
+      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATED_TIME = #{createdTime,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      UPDATED_TIME = #{updatedTime,jdbcType=TIMESTAMP},
+      CONTENT = #{content,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.akita.moa.model.ImsMessage">
+    update ims_message
+    set SENDER = #{sender,jdbcType=VARCHAR},
+      RECEIVER = #{receiver,jdbcType=VARCHAR},
+      GROUP_ID = #{groupId,jdbcType=VARCHAR},
+      IS_GROUP = #{isGroup,jdbcType=INTEGER},
+      TYPE = #{type,jdbcType=INTEGER},
+      FILE_TYPE = #{fileType,jdbcType=VARCHAR},
+      URI = #{uri,jdbcType=VARCHAR},
+      THUMBNAIL = #{thumbnail,jdbcType=VARCHAR},
+      DURATION = #{duration,jdbcType=INTEGER},
+      EXTRA = #{extra,jdbcType=VARCHAR},
+      IS_AVAILABLE = #{isAvailable,jdbcType=INTEGER},
+      REVISION = #{revision,jdbcType=INTEGER},
+      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATED_TIME = #{createdTime,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      UPDATED_TIME = #{updatedTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
