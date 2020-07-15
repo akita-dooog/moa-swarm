@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @Api(value = "登录控制器", tags = {"登录控制器"})
 @RestController
 public class LoginController {
@@ -25,10 +27,8 @@ public class LoginController {
     @ApiOperation(value = "登录接口", notes = "前端登录校验，返回token")
     @PostMapping("/login")
     public CommonResult login(@ApiParam("登录请求体") @RequestBody LoginReq loginReq) {
-        String token = loginService.login(loginReq);
+        Optional<String> token = Optional.of(loginService.login(loginReq));
 
-        if (token == null) return CommonResult.validateFailed("用户名或密码错误");
-
-        return CommonResult.success(new LoginRes(jwtConfig.getTokenHead(), token));
+        return CommonResult.success(new LoginRes(jwtConfig.getTokenHead(), token.get()));
     }
 }

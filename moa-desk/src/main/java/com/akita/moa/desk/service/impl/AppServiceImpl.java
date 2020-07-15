@@ -14,7 +14,8 @@ public class AppServiceImpl implements AppService {
     private AppDao appDao;
 
     @Override
-    public List<App> listByUsername(String username) {
+    public List<App> listByUsername() {
+        String username = userDetails().getUsername();
         return appDao.listByUsername(username);
     }
 }

@@ -1,7 +1,6 @@
 package com.akita.moa.govern.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.akita.moa.govern.domain.GmsUserDetails;
 import com.akita.moa.govern.dto.LoginReq;
 import com.akita.moa.govern.service.LoginService;
 import com.akita.moa.mapper.GmsUserAccountMapper;
@@ -10,11 +9,13 @@ import com.akita.moa.model.GmsUser;
 import com.akita.moa.model.GmsUserAccount;
 import com.akita.moa.model.GmsUserAccountExample;
 import com.akita.moa.model.GmsUserExample;
+import com.akita.moa.security.MoaUserAuthority;
+import com.akita.moa.security.MoaUserDetails;
 import com.akita.moa.security.util.JwtTokenUtil;
+import com.akita.moa.security.util.UserDetailsUtil;
+import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -34,13 +35,14 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public String login(LoginReq req) {
-        UserDetails userDetails = loadUserByUsername(req.getUsername());
+        GmsUserAccount account = getAccount(req.getUsername());
 
-        if (!userDetails.getPassword().equals(req.getPassword()))
+        if (!account.getPassword().equals(req.getPassword()))
             throw new BadCredentialsException("用户名密码错误");
 
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        MoaUserDetails userDetails = (MoaUserDetails) loadUserByUsername(req.getUsername());
+
+        UserDetailsUtil.authentication(userDetails);
 
         return jwtTokenUtil.generateToken(userDetails);
     }
@@ -52,7 +54,12 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return new GmsUserDetails(getAccount(username), getUser(username));
+        GmsUser user = getUser(username);
+
+        return MoaUserDetails.builder()
+                .username(username)
+                .isAvailable(user.getIsAvailable().equals(1))
+                .authorities(Sets.newHashSet(new MoaUserAuthority("auth:company:id", user.getCompanyId()))).build();
     }
 
     private GmsUser getUser(String username) {
