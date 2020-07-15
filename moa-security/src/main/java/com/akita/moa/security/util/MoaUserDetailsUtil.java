@@ -5,13 +5,15 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class UserDetailsUtil {
+import java.util.Optional;
+
+public class MoaUserDetailsUtil {
     public static void authentication(UserDetails userDetails) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
     }
 
     public static MoaUserDetails getUserDetails() {
-        return (MoaUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return Optional.of((MoaUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).get();
     }
 }

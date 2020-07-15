@@ -2,25 +2,21 @@ package com.akita.moa.security;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class MoaUserAuthority<T> implements GrantedAuthority {
-    private String moaAuthKey;
+    private MoaAuthKey moaAuthKey;
 
-    private Set<T> sources;
+    private T source;
 
-    public MoaUserAuthority (String moaAuthKey, T source) {
+    public MoaUserAuthority (MoaAuthKey moaAuthKey, T source) {
         this.moaAuthKey = moaAuthKey;
-        this.sources = new HashSet<>();
-        this.sources.add(source);
+        this.source = source;
     }
 
     public String getAuthority() {
-        return moaAuthKey;
+        return moaAuthKey.getKey();
     }
 
-    public Set<T> getSources() {
-        return this.sources;
+    public T getSource() {
+        return this.source;
     }
 }

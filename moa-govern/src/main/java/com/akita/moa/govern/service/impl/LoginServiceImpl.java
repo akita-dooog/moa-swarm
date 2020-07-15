@@ -9,10 +9,11 @@ import com.akita.moa.model.GmsUser;
 import com.akita.moa.model.GmsUserAccount;
 import com.akita.moa.model.GmsUserAccountExample;
 import com.akita.moa.model.GmsUserExample;
+import com.akita.moa.security.MoaAuthKey;
 import com.akita.moa.security.MoaUserAuthority;
 import com.akita.moa.security.MoaUserDetails;
 import com.akita.moa.security.util.JwtTokenUtil;
-import com.akita.moa.security.util.UserDetailsUtil;
+import com.akita.moa.security.util.MoaUserDetailsUtil;
 import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -42,7 +43,7 @@ public class LoginServiceImpl implements LoginService {
 
         MoaUserDetails userDetails = (MoaUserDetails) loadUserByUsername(req.getUsername());
 
-        UserDetailsUtil.authentication(userDetails);
+        MoaUserDetailsUtil.authentication(userDetails);
 
         return jwtTokenUtil.generateToken(userDetails);
     }
@@ -59,7 +60,7 @@ public class LoginServiceImpl implements LoginService {
         return MoaUserDetails.builder()
                 .username(username)
                 .isAvailable(user.getIsAvailable().equals(1))
-                .authorities(Sets.newHashSet(new MoaUserAuthority("auth:company:id", user.getCompanyId()))).build();
+                .authorities(Sets.newHashSet(new MoaUserAuthority(MoaAuthKey.MY_COMPANY_ID, user.getCompanyId()))).build();
     }
 
     private GmsUser getUser(String username) {
